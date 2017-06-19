@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>slider für Denkmalpflege</title>
+	<title>Slider für Denkmalpflege</title>
 	<style>
 		html,
 		body {
@@ -11,37 +11,108 @@
 			padding: 0;
 			width: 100%;
 			height: 100%;
-			background: red;
 			overflow: hidden;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		#sliderRoot>div {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			background: white;
+			opacity: 0;
+			transition: opacity 2s;
+			background-size: cover;
+			background-position: center center;
+		}
+
+		#sliderRoot>div.open {
+			opacity: 1;
+		}
+
+		#sliderRoot>div div {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.5);
+			color: white;
+			padding: 10px;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="sliderRoot">
-		<figure>
-			<img src="http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider1.png" alt="slider1">
-			<div></div>
-		</figure>
-		<figure>
-			<img src="" alt="slider2">
-			<div></div>
-		</figure>
-		<figure>
-			<img src="" alt="slider3">
-			<div></div>
-		</figure>
-		<figure>
-			<img src="" alt="slider4">
-			<div></div>
-		</figure>
-		<figure>
-			<img src="" alt="slider5">
-			<div></div>
-		</figure>
+		<div class="open" style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider1.png)">
+			<div>St. Gallen Altstadt 1</div>
+			<div class="last"></div>
+			<div class="next"></div>
+		</div>
+		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider2.png)">
+			<div>St. Gallen Altstadt 2</div>
+			<div class="last"></div>
+			<div class="next"></div>
+		</div>
+		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider3.png)">
+			<div>St. Gallen Altstadt 3</div>
+			<div class="last"></div>
+			<div class="next"></div>
+		</div>
+		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider4.png)">
+			<div>St. Gallen Altstadt 4</div>
+			<div class="last"></div>
+			<div class="next"></div>
+		</div>
+		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider5.png)">
+			<div>St. Gallen Altstadt 5</div>
+			<div class="last"></div>
+			<div class="next"></div>
+		</div>
 	</div>
 	<script>
+		var figures = document.getElementById("sliderRoot").children;
+		console.log(figures)
+		var figureLength = figures.length;
+		var current = 0;
 
+		function getFigure(i) {
+			return figures[i % figureLength];
+		}
+
+		function transition(from, to) {
+			var fromFig = getFigure(from);
+			var toFig = getFigure(to);
+			fromFig.style.zIndex = 2;
+			toFig.style.zIndex = 3;
+			toFig.classList.add('open');
+			setTimeout(function () {
+				fromFig.classList.remove('open');
+			}, 2000);
+		}
+
+		function transitionToNext() {
+			transition(current, current + 1);
+			current++;
+		}
+
+		// IIFE starts script
+		(function () {
+			// get first element to top
+			figures[current].style.zIndex = 2;
+
+			setInterval(transitionToNext, 5000);
+
+			for (var i = 0; i < figureLength; i++) {
+				var figure = figures[i];
+				// figure.style.zIndex = figureLength - i;
+				var img = figure.firstElementChild;
+				img.src = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider" + (i + 1) + ".png";
+				console.log({ x: figure, y: figure.firstElementChild })
+			}
+		})();
 	</script>
 </body>
 
