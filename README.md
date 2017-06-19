@@ -1,1 +1,1 @@
-# denkmalpflege-jsslider
+# JavaScript slider für Denkmalpflege
