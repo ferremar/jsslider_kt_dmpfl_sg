@@ -196,12 +196,19 @@
 
 				transitioning = true;
 
+				foreachFig(function (fig) {
+					if (fig !== toFig && fig !== fromFig) {
+						fig.style.zIndex = 1;
+					}
+				})
 				//then showing the current slide
 				if (!transitionsSupported) {
-					fadeInNew(toFig, true, function () { console.log("called") });
-					// putting to in front of from
+					toFig.style.filter = "alpha(opacity=0)";
+					toFig.style.opacity = 0;
 					fromFig.style.zIndex = 2;
 					toFig.style.zIndex = 3;
+					fadeInNew(toFig, true, function () { console.log("called") });
+					// putting to in front of from
 				} else {
 					// putting to in front of from
 					fromFig.style.zIndex = 2;
