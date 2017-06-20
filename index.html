@@ -117,49 +117,14 @@
 		var transitioning = false;
 		var transitionsSupported = ('transition' in document.documentElement.style) || ('WebkitTransition' in document.documentElement.style);
 
-		// fade in from youmightnotneedjquery.com
-		function fadeIn(el) {
-			var opacity = 0;
-
-			el.style.opacity = 0;
-			el.style.filter = '';
-
-			var last = +new Date();
-			var tick = function () {
-				opacity += (new Date() - last) / 1000;
-				el.style.opacity = opacity;
-				el.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
-
-				console.log(opacity)
-
-				last = +new Date();
-
-				if (opacity < 1) {
-					(window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
-				}
-			};
-
-			tick();
-		}
-
-		function fadeInNew(elm, boolFadeIn, cb) {
-			function fade(elm, boolFadeIn, cb) {
+		// customized from here: http://www.codingforums.com/javascript-programming/236118-fadein-fadeout-source-code.html
+		function fadeInNew(elm) {
+			function fade(elm) {
 				var i = 1, ii = 1, steps = 62, st = setTimeout, es = elm.style, del = window.fade.del || 40;
-				if (cb && cb.charAt) { cb = Function("element", "hidden", cb); }
-				if (boolFadeIn && boolFadeIn != "out") {
-					// if (es.display == "block") { return elm; }
-					// es.display = elm.od || "block";
-					for (i = 1; i < steps; i++) {
-						st(function () { trans(elm, ii++ * 100 / (steps - 1)); }, i * del);
-					}
-					st(function () { es.filter = null; if (cb) { cb.call(elm, elm, 100); } }, (steps + 1) * del);
-				} else {
-					elm.od = es.display !== "none" ? es.display : "";
-					for (i = 1; i < steps; i++) {
-						st(function () { trans(elm, (steps - 1 - ii++) * 100 / (steps - 1)); }, 400 - i * del);
-					}
-					st(function () { es.display = "none"; trans(elm, 100); if (cb) { cb.call(elm, elm, 0); } }, 12 * del);
+				for (i = 1; i < steps; i++) {
+					st(function () { trans(elm, ii++ * 100 / (steps - 1)); }, i * del);
 				}
+				st(function () { es.filter = null; if (cb) { cb.call(elm, elm, 100); } }, (steps + 1) * del);
 				return elm;
 			}//end fade
 			window.fade = { del: 16 }; //optional global delay between opacity step
@@ -171,7 +136,7 @@
 					elm.style.filter = "alpha(opacity=" + opacity + ")";
 				};
 			}
-			return fade(elm, boolFadeIn, cb);
+			return fade(elm);
 		}
 
 
@@ -192,8 +157,6 @@
 				var fromFig = getFigure(current);
 				var toFig = getFigure(current + offset);
 
-				console.log(fromFig.style, toFig.style)
-
 				transitioning = true;
 
 				foreachFig(function (fig) {
@@ -207,7 +170,7 @@
 					toFig.style.opacity = 0;
 					toFig.style.zIndex = 3;
 					fromFig.style.zIndex = 2;
-					fadeInNew(toFig, true, function () { console.log("called") });
+					fadeInNew(toFig, true);
 					// putting to in front of from
 				} else {
 					// putting to in front of from
