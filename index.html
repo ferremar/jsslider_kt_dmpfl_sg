@@ -144,6 +144,38 @@
 			tick();
 		}
 
+		function fadeInNew(elm, boolFadeIn, cb) {
+			function fade(elm, boolFadeIn, cb) {
+				var i = 1, ii = 1, st = setTimeout, es = elm.style, del = fade.del || 40;
+				if (cb && cb.charAt) { cb = Function("element", "hidden", cb); }
+				if (boolFadeIn && boolFadeIn != "out") {
+					if (es.display == "block") { return elm; }
+					es.display = elm.od || "block";
+					for (i = 1; i < 11; i++) {
+						st(function () { trans(elm, ii++ * 10); }, i * del);
+					}
+					st(function () { es.filter = null; if (cb) { cb.call(elm, elm, 100); } }, 12 * del);
+				} else {
+					elm.od = es.display !== "none" ? es.display : "";
+					for (i = 1; i < 11; i++) {
+						st(function () { trans(elm, (10 - ii++) * 10); }, 400 - i * del);
+					}
+					st(function () { es.display = "none"; trans(elm, 100); if (cb) { cb.call(elm, elm, 0); } }, 12 * del);
+				}
+				return elm;
+			}//end fade
+			window.fade.del = 1000; //optional global delay between opacity step
+			function trans(elm, opacity) {
+				elm.style.opacity = (opacity / 100);
+			}
+			if ("\v" == "v") {
+				trans = function transIE(elm, opacity) {
+					elm.style.filter = "alpha(opacity=" + opacity + ")";
+				};
+			}
+			return fade(elm, boolFadeIn, cb);
+		}
+
 
 		function foreachFig(fn) {
 			for (var i = 0; i < figures.length; i++) {
@@ -170,7 +202,7 @@
 
 				//then showing the current slide
 				if (!transitionsSupported) {
-					fadeIn(toFig);
+					fadeInNew(toFig);
 				} else {
 					toFig.className = "open";
 				}
