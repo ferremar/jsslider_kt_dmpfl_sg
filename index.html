@@ -151,7 +151,6 @@
 
 
 		function transitionToNextAuto() {
-			console.log(Date.now() - lastUserAction)
 			if (Date.now() - lastUserAction > 12.5 * 1000) {
 				transitionToNext({ type: "auto" });
 			}
