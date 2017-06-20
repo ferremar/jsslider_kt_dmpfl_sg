@@ -241,8 +241,9 @@
 		}
 
 		function loadDesc() {
+			// the ?x at the end seems to be necessary to load the latest version
+			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.js?x";
 			// ie bugfix from https://stackoverflow.com/questions/4845762/onload-handler-for-script-tag-in-internet-explorer
-			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.js";
 			var head = document.getElementsByTagName("head")[0] || document.documentElement;
 			var script = document.createElement("script");
 			script.src = url;
