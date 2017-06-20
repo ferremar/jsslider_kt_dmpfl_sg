@@ -200,7 +200,7 @@
 
 				//then showing the current slide
 				if (!transitionsSupported) {
-					fadeInNew(toFig, true);
+					fadeInNew(toFig, true, function () { console.log("called") });
 				} else {
 					toFig.className = "open";
 				}
