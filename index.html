@@ -172,8 +172,12 @@
 
 				setTimeout(function () {
 					foreachFig(function (fig) {
-						if (fig !== toFig)
+						if (fig !== toFig) {
 							fig.className = "";
+							if (!transitionsSupported) {
+								fig.style.opacity = 0;
+							}
+						}
 					})
 					current += offset;
 					transitioning = false;
