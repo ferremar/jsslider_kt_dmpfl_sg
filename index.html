@@ -23,23 +23,57 @@
 			position: absolute;
 			background: white;
 			opacity: 0;
-			transition: opacity 2s;
 			background-size: cover;
 			background-position: center center;
 		}
 
 		#sliderRoot>div.open {
+			transition: opacity 1s;
 			opacity: 1;
 		}
 
 		#sliderRoot>div div {
 			position: absolute;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		#sliderRoot>div .caption {
 			right: 0;
 			bottom: 0;
 			left: 0;
-			background: rgba(0, 0, 0, 0.5);
 			color: white;
 			padding: 10px;
+		}
+
+		#sliderRoot>div .next,
+		#sliderRoot>div .last {
+			top: 50%;
+			height: 50px;
+			width: 50px;
+			margin-top: -25px;
+			background-position: center center;
+			background-size: contain;
+		}
+
+		#sliderRoot>div .next {
+			right: 10px;
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAaklEQVRYw+3NwQ1AQAAF0T2iAFrabkQ12nAU2kAHetjbuLAV+CL8KWBeCM45d1eUFNr9xCgjqJgBZAQ9VxqChk1PrCZeQtRPEMsniD0TgwLo8j4Rvff+J/tWug+BSBLuM6Hbn4Ry75xz4g4hhBxZwFnSIAAAAABJRU5ErkJggg==');
+		}
+
+		#sliderRoot>div .last {
+			left: 10px;
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAa0lEQVRYw+3TuwmAQBCE4UHBMvQK1iJ8BJZhJaKVjHcgFwiGEyzMt/k/0QJmZipMTNr8lS8p84VmouaLUZvf2Cjza+j84vx/fo6WzwNHzd/s1J+7s/WEJzzxmZgA5cTJHtBN6PLvxAAzszAeHngjxPQ53eEAAAAASUVORK5CYII=');
+		}
+
+		@media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+		only screen and (min--moz-device-pixel-ratio: 1.25),
+		only screen and (min-device-pixel-ratio: 1.25) {
+			#sliderRoot>div .next {
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAAAsElEQVR42u3awQ0BQQCF4SllrY5EcNCWfpSy1EGeC4mEuzz5vgref9udmTEAAAAA+L2sMjXPn3PJUpuQOZckKU3InGte+hKyfpvfl/Axvy0hm9yT7oSDBAkSxhgjewkSJDwTbhIkSBgjOwkSJPxLwinfnFvmH6s/Lsw333zzzTfffPPNN9/8P56/LT8LzZSl+n/3S0LhVfd7Quljg1dC8XOPKUvx/GdC83wAAAAAajwA4BUQkLcTXyMAAAAASUVORK5CYII=');
+			}
+			#sliderRoot>div .last {
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAQAAABIkb+zAAAAkklEQVR42u3XuxFBARiE0T9Hj/ThcUtDoK2VCO4YkciacyrYL9wZAAAAAH5flizd85PUJrzmtyas5jcmvM1vS/gwP0kO3fPv2ZpvvvmN8zfmm//d/Jv55pvfOP9qvvnmdwY8smt/vBIkSJAgQYIECRIkSJDwxwn7meaE43R5SzhNn1VC4/xVwnl6ZcllAAAAAIAnhEkDW8aqSjkAAAAASUVORK5CYII=');
+			}
 		}
 	</style>
 </head>
@@ -47,70 +81,98 @@
 <body>
 	<div id="sliderRoot">
 		<div class="open" style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider1.png)">
-			<div>St. Gallen Altstadt 1</div>
+			<div class="caption">St. Gallen Altstadt 1</div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider2.png)">
-			<div>St. Gallen Altstadt 2</div>
+			<div class="caption">St. Gallen Altstadt 2</div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider3.png)">
-			<div>St. Gallen Altstadt 3</div>
+			<div class="caption">St. Gallen Altstadt 3</div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider4.png)">
-			<div>St. Gallen Altstadt 4</div>
+			<div class="caption">St. Gallen Altstadt 4</div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider5.png)">
-			<div>St. Gallen Altstadt 5</div>
+			<div class="caption">St. Gallen Altstadt 5</div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 	</div>
 	<script>
 		var figures = document.getElementById("sliderRoot").children;
-		console.log(figures)
 		var figureLength = figures.length;
 		var current = 0;
+		var lastUserAction = Date.now() - 12.5 * 1000;
+		var transitioning = false;
 
 		function getFigure(i) {
-			return figures[i % figureLength];
+			//using positive modulo
+			return figures[(i % figureLength + figureLength) % figureLength];
 		}
 
 		function transition(from, to) {
-			var fromFig = getFigure(from);
-			var toFig = getFigure(to);
-			fromFig.style.zIndex = 2;
-			toFig.style.zIndex = 3;
-			toFig.classList.add('open');
-			setTimeout(function () {
-				fromFig.classList.remove('open');
-			}, 2000);
+			if (!transitioning) {
+				var fromFig = getFigure(from);
+				var toFig = getFigure(to);
+
+				// putting to in front of from
+				fromFig.style.zIndex = 2;
+				toFig.style.zIndex = 3;
+
+				//then showing the opacity
+				toFig.classList.add('open');
+				transitioning = true;
+				setTimeout(function () {
+					fromFig.classList.remove('open');
+					transitioning = false;
+				}, 1000);
+			}
 		}
 
-		function transitionToNext() {
+
+		function transitionToNextAuto() {
+			console.log(Date.now() - lastUserAction)
+			if (Date.now() - lastUserAction > 12.5 * 1000) {
+				transitionToNext(true);
+			}
+		}
+
+		function transitionToNext(auto) {
+			if (!auto) {
+				lastUserAction = Date.now();
+			}
+
 			transition(current, current + 1);
 			current++;
 		}
 
+		function transitionToLast() {
+			lastUserAction = Date.now();
+			transition(current, current - 1);
+			current--;
+			console.log(current)
+		}
+
 		// IIFE starts script
 		(function () {
-			// get first element to top
-			figures[current].style.zIndex = 2;
+			setInterval(transitionToNextAuto, 5000);
 
-			setInterval(transitionToNext, 5000);
+			var nextButtons = document.getElementsByClassName('next');
+			var lastButtons = document.getElementsByClassName('last');
 
-			for (var i = 0; i < figureLength; i++) {
-				var figure = figures[i];
-				// figure.style.zIndex = figureLength - i;
-				var img = figure.firstElementChild;
-				img.src = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider" + (i + 1) + ".png";
-				console.log({ x: figure, y: figure.firstElementChild })
+			for (var i = 0; i < nextButtons.length; i++) {
+				nextButtons[i].addEventListener("click", transitionToNext);
+			}
+			for (var i = 0; i < lastButtons.length; i++) {
+				lastButtons[i].addEventListener("click", transitionToLast);
 			}
 		})();
 	</script>
