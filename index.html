@@ -147,8 +147,8 @@
 				var i = 1, ii = 1, steps = 62, st = setTimeout, es = elm.style, del = window.fade.del || 40;
 				if (cb && cb.charAt) { cb = Function("element", "hidden", cb); }
 				if (boolFadeIn && boolFadeIn != "out") {
-					if (es.display == "block") { return elm; }
-					es.display = elm.od || "block";
+					// if (es.display == "block") { return elm; }
+					// es.display = elm.od || "block";
 					for (i = 1; i < steps; i++) {
 						st(function () { trans(elm, ii++ * 100 / (steps - 1)); }, i * del);
 					}
