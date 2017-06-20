@@ -113,25 +113,36 @@
 		var lastUserAction = Date.now() - 12.5 * 1000;
 		var transitioning = false;
 
-		function getFigure(i) {
-			//using positive modulo
-			return figures[(i % figureLength + figureLength) % figureLength];
+		function foreachFig(fn) {
+			for (var i = 0; i < figures.length; i++) {
+				var figure = figures[i];
+				fn(figure, i);
+			}
 		}
 
-		function transition(from, to) {
+		function getFigure(i) {
+			//using positive modulo
+			return figures[(i % figures.length + figures.length) % figures.length];
+		}
+
+		function transition(offset) {
 			if (!transitioning) {
-				var fromFig = getFigure(from);
-				var toFig = getFigure(to);
+				var fromFig = getFigure(current);
+				var toFig = getFigure(current + offset);
 
 				// putting to in front of from
 				fromFig.style.zIndex = 2;
 				toFig.style.zIndex = 3;
 
-				//then showing the opacity
+				//then showing the current slide
 				toFig.classList.add('open');
 				transitioning = true;
 				setTimeout(function () {
-					fromFig.classList.remove('open');
+					foreachFig(fig => {
+						if (fig !== toFig)
+							fig.classList.remove('open');
+					})
+					current += offset;
 					transitioning = false;
 				}, 1000);
 			}
@@ -141,24 +152,21 @@
 		function transitionToNextAuto() {
 			console.log(Date.now() - lastUserAction)
 			if (Date.now() - lastUserAction > 12.5 * 1000) {
-				transitionToNext(true);
+				transitionToNext({ type: "auto" });
 			}
 		}
 
-		function transitionToNext(auto) {
-			if (!auto) {
+		function transitionToNext(e) {
+			if (e.type !== "auto") {
 				lastUserAction = Date.now();
 			}
 
-			transition(current, current + 1);
-			current++;
+			transition(1);
 		}
 
 		function transitionToLast() {
 			lastUserAction = Date.now();
-			transition(current, current - 1);
-			current--;
-			console.log(current)
+			transition(-1);
 		}
 
 		// IIFE starts script
