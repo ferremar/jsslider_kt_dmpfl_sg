@@ -270,7 +270,7 @@
 			head.insertBefore(script, head.firstChild);
 		}
 
-		function addEventListener(el, event, fn) {
+		function customEventL(el, event, fn) {
 			if (el.addEventListener) {
 				el.addEventListener(event, fn);
 			} else {
@@ -286,10 +286,10 @@
 			var lastButtons = document.querySelectorAll('.last');
 
 			for (var i = 0; i < nextButtons.length; i++) {
-				addEventListener(nextButtons[i], "click", transitionToNext);
+				customEventL(nextButtons[i], "click", transitionToNext);
 			}
 			for (var i = 0; i < lastButtons.length; i++) {
-				addEventListener(lastButtons[i], "click", transitionToLast);
+				customEventL(lastButtons[i], "click", transitionToLast);
 			}
 
 			loadDesc();
