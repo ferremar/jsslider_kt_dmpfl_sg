@@ -197,7 +197,7 @@
 				transitioning = true;
 
 				foreachFig(function (fig) {
-					if (fig !== toFig && fig !== fromFig) {
+					if (fig !== fromFig) {
 						fig.style.zIndex = 1;
 					}
 				})
@@ -205,8 +205,8 @@
 				if (!transitionsSupported) {
 					toFig.style.filter = "alpha(opacity=0)";
 					toFig.style.opacity = 0;
-					fromFig.style.zIndex = 2;
 					toFig.style.zIndex = 3;
+					fromFig.style.zIndex = 2;
 					fadeInNew(toFig, true, function () { console.log("called") });
 					// putting to in front of from
 				} else {
