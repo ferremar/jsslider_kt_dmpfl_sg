@@ -26,6 +26,7 @@
 			opacity: 0;
 			background-size: cover;
 			background-position: center center;
+			background-repeat: no-repeat;
 		}
 
 		#sliderRoot>div.open {
@@ -169,6 +170,10 @@
 			transition(-1);
 		}
 
+		function addDesc() {
+			http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json
+		}
+
 		// IIFE starts script
 		(function () {
 			setInterval(transitionToNextAuto, 5000);
@@ -182,6 +187,8 @@
 			for (var i = 0; i < lastButtons.length; i++) {
 				lastButtons[i].addEventListener("click", transitionToLast);
 			}
+
+			addDesc();
 		})();
 	</script>
 </body>
