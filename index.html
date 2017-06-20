@@ -224,11 +224,11 @@
 			var sliderData = window.sliderData;
 			var sliderArray = [];
 			for (slider in sliderData) {
-				sliderArray.push(sliderData.slider);
+				sliderArray.push(sliderData[slider]);
 			}
 
 			foreachFig(function (fig, i) {
-				if (sliderData[i] !== undefined) {
+				if (sliderArray[i] !== undefined) {
 					var caption = fig.querySelector('.caption');
 					caption.innerText = sliderArray[i];
 					if (transitionsSupported) {
