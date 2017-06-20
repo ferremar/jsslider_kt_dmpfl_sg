@@ -126,7 +126,7 @@
 
 			var last = +new Date();
 			var tick = function () {
-				opacity += (new Date() - last) / 400;
+				opacity += (new Date() - last) / 1000;
 				el.style.opacity = opacity;
 				el.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
 
@@ -202,7 +202,25 @@
 		}
 
 		function addDesc() {
-			//http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json
+			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json";
+
+			var request = new XMLHttpRequest();
+			request.open('GET', url, true);
+
+			request.onreadystatechange = function () {
+				if (this.readyState === 4) {
+					if (this.status >= 200 && this.status < 400) {
+						// Success!
+						var resp = this.responseText;
+					} else {
+						// Error :(
+					}
+				}
+			};
+
+			request.send();
+			request = null;
+
 		}
 
 		function addEventListener(el, event, fn) {
