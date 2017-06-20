@@ -146,7 +146,7 @@
 
 		function fadeInNew(elm, boolFadeIn, cb) {
 			function fade(elm, boolFadeIn, cb) {
-				var i = 1, ii = 1, st = setTimeout, es = elm.style, del = fade.del || 40;
+				var i = 1, ii = 1, st = setTimeout, es = elm.style, del = window.fade.del || 40;
 				if (cb && cb.charAt) { cb = Function("element", "hidden", cb); }
 				if (boolFadeIn && boolFadeIn != "out") {
 					if (es.display == "block") { return elm; }
@@ -164,7 +164,7 @@
 				}
 				return elm;
 			}//end fade
-			window.fade.del = 1000; //optional global delay between opacity step
+			window.fade = { del: 1000 }; //optional global delay between opacity step
 			function trans(elm, opacity) {
 				elm.style.opacity = (opacity / 100);
 			}
