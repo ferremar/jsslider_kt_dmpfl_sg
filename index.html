@@ -178,8 +178,8 @@
 		(function () {
 			setInterval(transitionToNextAuto, 5000);
 
-			var nextButtons = document.getElementsByClassName('next');
-			var lastButtons = document.getElementsByClassName('last');
+			var nextButtons = document.querySelectorAll('.next');
+			var lastButtons = document.querySelectorAll('.last');
 
 			for (var i = 0; i < nextButtons.length; i++) {
 				nextButtons[i].addEventListener("click", transitionToNext);
