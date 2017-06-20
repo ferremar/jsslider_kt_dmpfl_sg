@@ -137,12 +137,12 @@
 				toFig.style.zIndex = 3;
 
 				//then showing the current slide
-				toFig.classList.add('open');
+				toFig.className = "open";
 				transitioning = true;
 				setTimeout(function () {
 					foreachFig(function (fig) {
 						if (fig !== toFig)
-							fig.classList.remove('open');
+							fig.className = "";
 					})
 					current += offset;
 					transitioning = false;
