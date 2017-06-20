@@ -162,13 +162,13 @@
 				fromFig.style.zIndex = 2;
 				toFig.style.zIndex = 3;
 
-				//then showing the current slide
-				toFig.className = "open";
 				transitioning = true;
 
+				//then showing the current slide
 				if (!transitionsSupported) {
 					fadeIn(toFig);
 				}
+				toFig.className = "open";
 
 				setTimeout(function () {
 					foreachFig(function (fig) {
