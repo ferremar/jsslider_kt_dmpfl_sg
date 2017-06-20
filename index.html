@@ -228,12 +228,14 @@
 			}
 
 			foreachFig(function (fig, i) {
-				var caption = fig.querySelector('.caption');
-				caption.innerText = sliderArray[i];
-				if (transitionsSupported) {
-					caption.className = caption.className + " opened";
-				} else {
-					fadeInNew(caption);
+				if (sliderData[i] !== undefined) {
+					var caption = fig.querySelector('.caption');
+					caption.innerText = sliderArray[i];
+					if (transitionsSupported) {
+						caption.className = caption.className + " opened";
+					} else {
+						fadeInNew(caption);
+					}
 				}
 			});
 		}
