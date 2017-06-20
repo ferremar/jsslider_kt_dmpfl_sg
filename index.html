@@ -140,7 +140,7 @@
 				toFig.classList.add('open');
 				transitioning = true;
 				setTimeout(function () {
-					foreachFig(fig => {
+					foreachFig(function (fig) {
 						if (fig !== toFig)
 							fig.classList.remove('open');
 					})
@@ -171,7 +171,7 @@
 		}
 
 		function addDesc() {
-			http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json
+			//http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json
 		}
 
 		// IIFE starts script
