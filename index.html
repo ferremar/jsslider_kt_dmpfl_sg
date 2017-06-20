@@ -46,6 +46,12 @@
 			left: 0;
 			color: white;
 			padding: 10px;
+			transition: opacity 1s;
+			opacity: 0;
+		}
+
+		#sliderRoot>div .caption.opened {
+			opacity: 1;
 		}
 
 		#sliderRoot>div .next,
@@ -84,27 +90,27 @@
 <body>
 	<div id="sliderRoot">
 		<div class="open" style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider1.png)">
-			<div class="caption">St. Gallen Altstadt 1</div>
+			<div class="caption"></div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider2.png)">
-			<div class="caption">St. Gallen Altstadt 2</div>
+			<div class="caption"></div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider3.png)">
-			<div class="caption">St. Gallen Altstadt 3</div>
+			<div class="caption"></div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider4.png)">
-			<div class="caption">St. Gallen Altstadt 4</div>
+			<div class="caption"></div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
 		<div style="background-image: url(http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/slider5.png)">
-			<div class="caption">St. Gallen Altstadt 5</div>
+			<div class="caption"></div>
 			<div class="last"></div>
 			<div class="next"></div>
 		</div>
@@ -215,7 +221,21 @@
 		}
 
 		function addDesc() {
-			console.log(window.sliderData)
+			var sliderData = window.sliderData;
+			var sliderArray = [];
+			for (slider in sliderData) {
+				sliderArray.push(slider);
+			}
+
+			foreachFig(function (fig, i) {
+				var caption = fig.querySelector('.caption');
+				caption.innerText = sliderArray[i];
+				if (transitionsSupported) {
+					caption.className = caption.className + " opened";
+				} else {
+					fadeInNew(caption);
+				}
+			});
 		}
 
 		function loadDesc() {
