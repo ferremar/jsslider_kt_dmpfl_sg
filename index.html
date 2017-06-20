@@ -192,16 +192,18 @@
 				var fromFig = getFigure(current);
 				var toFig = getFigure(current + offset);
 
-				// putting to in front of from
-				fromFig.style.zIndex = 2;
-				toFig.style.zIndex = 3;
-
 				transitioning = true;
 
 				//then showing the current slide
 				if (!transitionsSupported) {
 					fadeInNew(toFig, true, function () { console.log("called") });
+					// putting to in front of from
+					fromFig.style.zIndex = 2;
+					toFig.style.zIndex = 3;
 				} else {
+					// putting to in front of from
+					fromFig.style.zIndex = 2;
+					toFig.style.zIndex = 3;
 					toFig.className = "open";
 				}
 				setTimeout(function () {
@@ -210,6 +212,7 @@
 							fig.className = "";
 							if (!transitionsSupported) {
 								fig.style.opacity = 0;
+								fig.style.filter = '';
 							}
 						}
 					})
