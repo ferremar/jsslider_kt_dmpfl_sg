@@ -115,6 +115,31 @@
 		var current = 0;
 		var lastUserAction = Date.now() - 12.5 * 1000;
 		var transitioning = false;
+		var transitionsSupported = ('transition' in document.documentElement.style) || ('WebkitTransition' in document.documentElement.style);
+
+		// fade in from youmightnotneedjquery.com
+		function fadeIn(el) {
+			var opacity = 0;
+
+			el.style.opacity = 0;
+			el.style.filter = '';
+
+			var last = +new Date();
+			var tick = function () {
+				opacity += (new Date() - last) / 400;
+				el.style.opacity = opacity;
+				el.style.filter = 'alpha(opacity=' + (100 * opacity) | 0 + ')';
+
+				last = +new Date();
+
+				if (opacity < 1) {
+					(window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+				}
+			};
+
+			tick();
+		}
+
 
 		function foreachFig(fn) {
 			for (var i = 0; i < figures.length; i++) {
@@ -140,6 +165,11 @@
 				//then showing the current slide
 				toFig.className = "open";
 				transitioning = true;
+
+				if (!transitionsSupported) {
+					fadeIn(toFig);
+				}
+
 				setTimeout(function () {
 					foreachFig(function (fig) {
 						if (fig !== toFig)
