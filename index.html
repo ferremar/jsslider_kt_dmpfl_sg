@@ -291,6 +291,10 @@
 		(function () {
 			setInterval(transitionToNextAuto, 5000);
 
+			if (!transitionsSupported) {
+				figures[0].style.zIndex = 2;
+			}
+
 			var nextButtons = document.querySelectorAll('.next');
 			var lastButtons = document.querySelectorAll('.last');
 
