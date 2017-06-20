@@ -124,7 +124,7 @@
 				for (i = 1; i < steps; i++) {
 					st(function () { trans(elm, ii++ * 100 / (steps - 1)); }, i * del);
 				}
-				st(function () { es.filter = null; if (cb) { cb.call(elm, elm, 100); } }, (steps + 1) * del);
+				st(function () { es.filter = null; }, (steps + 1) * del);
 				return elm;
 			}//end fade
 			window.fade = { del: 16 }; //optional global delay between opacity step
