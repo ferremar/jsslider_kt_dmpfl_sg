@@ -36,7 +36,7 @@
 
 		#sliderRoot>div div {
 			position: absolute;
-			background-color: #888;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000);
 			background-color: rgba(0, 0, 0, 0.5);
 		}
 
@@ -202,25 +202,34 @@
 		}
 
 		function addDesc() {
-			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.json";
+			console.log(window.sliderData)
+		}
 
-			var request = new XMLHttpRequest();
-			request.open('GET', url, true);
+		function loadDesc() {
+			// ie bugfix from https://stackoverflow.com/questions/4845762/onload-handler-for-script-tag-in-internet-explorer
+			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.js";
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = url;
 
-			request.onreadystatechange = function () {
-				if (this.readyState === 4) {
-					if (this.status >= 200 && this.status < 400) {
-						// Success!
-						var resp = this.responseText;
-					} else {
-						// Error :(
-					}
+			//for nonIE browsers
+			script.onload = function () {
+				addDesc();
+			}
+
+			//for IE Browsers
+			ieLoadBugFix(script, function () {
+				addDesc();
+			});
+
+			function ieLoadBugFix(scriptElement, callback) {
+				if (scriptElement.readyState == 'loaded' || scriptElement.readyState == 'completed') {
+					callback();
+				} else {
+					setTimeout(function () { ieLoadBugFix(scriptElement, callback); }, 100);
 				}
-			};
-
-			request.send();
-			request = null;
-
+			}
+			document.getElementsByTagName("head")[0].appendChild(script);
 		}
 
 		function addEventListener(el, event, fn) {
@@ -245,7 +254,7 @@
 				addEventListener(lastButtons[i], "click", transitionToLast);
 			}
 
-			addDesc();
+			loadDesc();
 		})();
 	</script>
 </body>
