@@ -1,26 +1,25 @@
+
 <!doctype html>
-<!--made by Sandro, the civil servant!-->
 <html lang="de">
 
 <head>
 	<meta charset="utf-8">
-	<title>Slider für Denkmalpflege</title>
+	<title>Slider - Kantonale Denkmalpflege St. Gallen</title>
 	<style>
 		html,
 		body {
 			margin: 0;
 			padding: 0;
-			width: 100%;
-			height: 100%;
+			width: 555px;
+			height: 377px;
 			overflow: hidden;
 			font-family: Arial, Helvetica, sans-serif;
 		}
-
 		#sliderRoot>div {
 			margin: 0;
 			padding: 0;
-			width: 100%;
-			height: 100%;
+			width: 555px;
+			height: 377px;
 			position: absolute;
 			background: white;
 			opacity: 0;
@@ -28,18 +27,15 @@
 			background-position: center center;
 			background-repeat: no-repeat;
 		}
-
 		#sliderRoot>div.open {
 			transition: opacity 1s;
 			opacity: 1;
 		}
-
 		#sliderRoot>div div {
 			position: absolute;
-			background-color: #888;
-			background-color: rgba(0, 0, 0, 0.5);
+			background-color: no;
+			background-color: rgba(0, 0, 0, 0);
 		}
-
 		#sliderRoot>div .caption {
 			right: 0;
 			bottom: 0;
@@ -49,11 +45,9 @@
 			transition: opacity 1s;
 			opacity: 0;
 		}
-
 		#sliderRoot>div .caption.opened {
 			opacity: 1;
 		}
-
 		#sliderRoot>div .next,
 		#sliderRoot>div .last {
 			top: 50%;
@@ -63,17 +57,14 @@
 			background-position: center center;
 			background-size: contain;
 		}
-
 		#sliderRoot>div .next {
 			right: 10px;
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAaklEQVRYw+3NwQ1AQAAF0T2iAFrabkQ12nAU2kAHetjbuLAV+CL8KWBeCM45d1eUFNr9xCgjqJgBZAQ9VxqChk1PrCZeQtRPEMsniD0TgwLo8j4Rvff+J/tWug+BSBLuM6Hbn4Ry75xz4g4hhBxZwFnSIAAAAABJRU5ErkJggg==');
 		}
-
 		#sliderRoot>div .last {
 			left: 10px;
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAa0lEQVRYw+3TuwmAQBCE4UHBMvQK1iJ8BJZhJaKVjHcgFwiGEyzMt/k/0QJmZipMTNr8lS8p84VmouaLUZvf2Cjza+j84vx/fo6WzwNHzd/s1J+7s/WEJzzxmZgA5cTJHtBN6PLvxAAzszAeHngjxPQ53eEAAAAASUVORK5CYII=');
 		}
-
 		@media only screen and (-webkit-min-device-pixel-ratio: 1.25),
 		only screen and (min--moz-device-pixel-ratio: 1.25),
 		only screen and (min-device-pixel-ratio: 1.25) {
@@ -122,7 +113,6 @@
 		var lastUserAction = Date.now() - 12.5 * 1000;
 		var transitioning = false;
 		var transitionsSupported = ('transition' in document.documentElement.style) || ('WebkitTransition' in document.documentElement.style);
-
 		// customized from here: http://www.codingforums.com/javascript-programming/236118-fadein-fadeout-source-code.html
 		function fadeInNew(elm) {
 			function fade(elm) {
@@ -144,27 +134,21 @@
 			}
 			return fade(elm);
 		}
-
-
 		function foreachFig(fn) {
 			for (var i = 0; i < figures.length; i++) {
 				var figure = figures[i];
 				fn(figure, i);
 			}
 		}
-
 		function getFigure(i) {
 			//using positive modulo
 			return figures[(i % figures.length + figures.length) % figures.length];
 		}
-
 		function transition(offset) {
 			if (!transitioning) {
 				var fromFig = getFigure(current);
 				var toFig = getFigure(current + offset);
-
 				transitioning = true;
-
 				foreachFig(function (fig) {
 					if (fig !== fromFig) {
 						fig.style.zIndex = 1;
@@ -199,34 +183,27 @@
 				}, 1000);
 			}
 		}
-
-
 		function transitionToNextAuto() {
 			if (Date.now() - lastUserAction > 12.5 * 1000) {
 				transitionToNext({ type: "auto" });
 			}
 		}
-
 		function transitionToNext(e) {
 			if (e.type !== "auto") {
 				lastUserAction = Date.now();
 			}
-
 			transition(1);
 		}
-
 		function transitionToLast() {
 			lastUserAction = Date.now();
 			transition(-1);
 		}
-
 		function addDesc() {
 			var sliderData = window.sliderData;
 			var sliderArray = [];
 			for (slider in sliderData) {
 				sliderArray.push(sliderData[slider]);
 			}
-
 			foreachFig(function (fig, i) {
 				if (sliderArray[i] !== undefined) {
 					var caption = fig.querySelector('.caption');
@@ -239,7 +216,6 @@
 				}
 			});
 		}
-
 		function loadDesc() {
 			// the ?x at the end seems to be necessary to load the latest version
 			var url = "http://www.sg.ch/content/dam/bilder_library/kultur/denkmalpflege/slider/sliderData.js?x";
@@ -247,14 +223,12 @@
 			var head = document.getElementsByTagName("head")[0] || document.documentElement;
 			var script = document.createElement("script");
 			script.src = url;
-
 			var done = false;
 			// Attach handlers for all browsers
 			script.onload = script.onreadystatechange = function () {
 				if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
 					done = true;
 					addDesc();
-
 					// Handle memory leak in IE
 					script.onload = script.onreadystatechange = null;
 					if (head && script.parentNode) {
@@ -264,7 +238,6 @@
 			};
 			head.insertBefore(script, head.firstChild);
 		}
-
 		function customEventL(el, event, fn) {
 			if (el.addEventListener) {
 				el.addEventListener(event, fn);
@@ -272,25 +245,20 @@
 				el.attachEvent("on" + event, fn);
 			}
 		}
-
 		// IIFE starts script
 		(function () {
 			setInterval(transitionToNextAuto, 5000);
-
 			if (!transitionsSupported) {
 				figures[0].style.zIndex = 2;
 			}
-
 			var nextButtons = document.querySelectorAll('.next');
 			var lastButtons = document.querySelectorAll('.last');
-
 			for (var i = 0; i < nextButtons.length; i++) {
 				customEventL(nextButtons[i], "click", transitionToNext);
 			}
 			for (var i = 0; i < lastButtons.length; i++) {
 				customEventL(lastButtons[i], "click", transitionToLast);
 			}
-
 			loadDesc();
 		})();
 	</script>
