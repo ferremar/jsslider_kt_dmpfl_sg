@@ -1,6 +1,6 @@
 window.sliderData = {
-    slider1:"....1",
-    slider2:"....2",
-    slider3:"....3",
-    slider4:"....4",
+    slider1:"Bildtext 1",
+    slider2:"Bildtext 2",
+    slider3:"Bildtext 3",
+    slider4:"Bildtext 4",
 }
